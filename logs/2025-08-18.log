@@ -1,0 +1,12 @@
+2025-08-18 10:33:28,981 INFO root:56 Iniciando daemon de respaldo (intervalo=60s)
+2025-08-18 10:33:28,981 INFO root:50 Respaldando base(s) (postgres): {'type': 'postgres', 'host': '127.0.0.1', 'username': 'postgres', 'password': '***', 'port': '5438', 'backup_dir': '/home/', 'container': 'pgsql-11_22'}
+2025-08-18 10:33:29,124 ERROR root:140 Backup failed ({'type': 'postgres', 'host': '127.0.0.1', 'username': 'postgres', 'password': '***', 'port': '5438', 'backup_dir': '/home/', 'container': 'pgsql-11_22'}): rc=2 cmd=['docker', 'exec', 'pgsql-11_22', 'psql', '-U', 'postgres', '-h', '127.0.0.1', '-p', '5438', '-d', 'postgres', '-t', '-c', 'SELECT datname FROM pg_database WHERE datistemplate = false;'] stderr=psql: connection to server at "127.0.0.1", port 5438 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+2025-08-18 10:33:29,125 INFO root:60 Verificación completada. Próxima en 60 segundos
+2025-08-18 10:44:12,225 INFO root:56 Iniciando daemon de respaldo (intervalo=60s)
+2025-08-18 10:44:12,225 INFO root:50 Respaldando base(s) (postgres): {'type': 'postgres', 'host': '127.0.0.1', 'username': 'postgres', 'password': '***', 'port': '5438', 'backup_dir': '/home/', 'container': 'pgsql-11_22'}
+2025-08-18 10:44:12,342 INFO root:135 Backing up Postgres DB: asistenciasocial
+2025-08-18 10:53:11,553 INFO root:135 Backing up Postgres DB: distra_emiat2
+2025-08-18 10:53:30,482 INFO root:60 Verificación completada. Próxima en 60 segundos
+2025-08-18 10:54:30,502 INFO root:48 Ya existe respaldo de hoy (config múltiple postgres) en /home/
+2025-08-18 10:54:30,502 INFO root:60 Verificación completada. Próxima en 60 segundos

@@ -1,0 +1,22 @@
+{
+  "databases": [
+    {
+      "type": "postgres",
+      "host": "127.0.0.1",
+      "username": "postgres",
+      "password": "postgres",
+      "port": "5438",
+  "backup_dir": "/home/ecasella/backupdb",
+  "container": "pgsql-11_22"
+    },
+    {
+      "type": "mysql",
+      "host": "127.0.0.1",
+      "username": "root",
+      "password": "mypass",
+      "port": "3306",
+  "backup_dir": "./backups/mysql",
+  "container": "mariadbtest"
+    }
+  ]
+}

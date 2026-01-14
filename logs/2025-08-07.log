@@ -1,0 +1,131 @@
+2025-08-07 22:27:50,959 INFO Respaldando base de datos: {'db': '127.0.0.1', 'username': 'postgres', 'password': 'mysecretpassword', 'port': '5432'}
+2025-08-07 22:27:50,961 ERROR Error en el proceso de respaldo o copia: [Errno 2] No such file or directory: 'pg_dump'
+Traceback (most recent call last):
+  File "/home/manuel/Desktop/backup/main.py", line 29, in main
+    backup_database(db_conf)
+    ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/manuel/Desktop/backup/utils/client_backup.py", line 36, in backup_database
+    subprocess.run(cmd_sql, env={**os.environ, "PGPASSWORD": password})
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 554, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1039, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        pass_fds, cwd, env,
+                        ^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+                        gid, gids, uid, umask,
+                        ^^^^^^^^^^^^^^^^^^^^^^
+                        start_new_session, process_group)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1969, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'pg_dump'
+2025-08-07 22:32:11,615 INFO Respaldando base de datos: {'db': '127.0.0.1', 'username': 'postgres', 'password': 'mysecretpassword', 'port': '5432', 'backup_dir': './backups', 'container': 'my_postgres'}
+2025-08-07 22:32:11,808 ERROR Error en el proceso de respaldo o copia: Command '['docker', 'exec', '-e', 'PGPASSWORD=mysecretpassword', 'my_postgres', 'pg_dump', '-U', 'postgres', '-h', '127.0.0.1', '-p', '5432', '-d', '127.0.0.1', '-F', 'p', '-f', '/tmp/127.0.0.1_20250807_223211.sql']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/home/manuel/Desktop/backup/main.py", line 29, in main
+    backup_database(db_conf)
+    ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/manuel/Desktop/backup/utils/client_backup.py", line 42, in backup_database
+    subprocess.run(cmd_sql, check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 577, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['docker', 'exec', '-e', 'PGPASSWORD=mysecretpassword', 'my_postgres', 'pg_dump', '-U', 'postgres', '-h', '127.0.0.1', '-p', '5432', '-d', '127.0.0.1', '-F', 'p', '-f', '/tmp/127.0.0.1_20250807_223211.sql']' returned non-zero exit status 1.
+2025-08-07 22:37:14,430 INFO Respaldando base de datos: {'host': '127.0.0.1', 'username': 'postgres', 'password': 'mysecretpassword', 'port': '5432', 'backup_dir': './backups', 'container': 'my_postgres'}
+2025-08-07 22:37:15,679 INFO Respaldo completado.
+2025-08-07 23:01:17,801 INFO Respaldando base de datos: {'type': 'postgres', 'host': '127.0.0.1', 'username': 'postgres', 'password': 'mysecretpassword', 'port': '5432', 'backup_dir': './backups/postgres', 'container': 'my_postgres'}
+2025-08-07 23:01:17,911 INFO Backing up Postgres DB: squidstasts
+2025-08-07 23:01:18,891 INFO Respaldando base de datos: {'type': 'mysql', 'host': '127.0.0.1', 'username': 'root', 'password': 'my_mysql_password', 'port': '3306', 'backup_dir': './backups/mysql', 'container': 'my_mysql'}
+2025-08-07 23:01:18,909 ERROR Backup failed ({'type': 'mysql', 'host': '127.0.0.1', 'username': 'root', 'password': 'my_mysql_password', 'port': '3306', 'backup_dir': './backups/mysql', 'container': 'my_mysql'}): Command '['docker', 'exec', 'my_mysql', 'mysql', '-uroot', '-pmy_mysql_password', '-h127.0.0.1', '-P3306', '-e', 'SHOW DATABASES;']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/home/manuel/Desktop/backup/utils/client_backup.py", line 110, in backup_database
+    dbs = [db_conf['db']] if db_conf.get('db') else list_mysql_databases(user, password, port, host, container=container)
+                                                    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/manuel/Desktop/backup/utils/client_backup.py", line 57, in list_mysql_databases
+    result = docker_exec(container, cmd, capture=True)
+  File "/home/manuel/Desktop/backup/utils/client_backup.py", line 42, in docker_exec
+    return run(cmd, capture=capture)
+  File "/home/manuel/Desktop/backup/utils/client_backup.py", line 33, in run
+    return subprocess.run(cmd, check=True, text=capture, capture_output=capture, env=env)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 577, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['docker', 'exec', 'my_mysql', 'mysql', '-uroot', '-pmy_mysql_password', '-h127.0.0.1', '-P3306', '-e', 'SHOW DATABASES;']' returned non-zero exit status 1.
+2025-08-07 23:01:18,914 INFO Respaldo completado.
+2025-08-07 23:05:39,479 INFO root:10 Respaldando base de datos: {'type': 'postgres', 'host': '127.0.0.1', 'username': 'postgres', 'password': 'mysecretpassword', 'port': '5432', 'backup_dir': './backups/postgres', 'container': 'my_postgres'}
+2025-08-07 23:05:39,588 INFO root:127 Backing up Postgres DB: squidstasts
+2025-08-07 23:05:40,567 INFO root:10 Respaldando base de datos: {'type': 'mysql', 'host': '127.0.0.1', 'username': 'root', 'password': 'my_mysql_password', 'port': '3306', 'backup_dir': './backups/mysql', 'container': 'my_mysql'}
+2025-08-07 23:05:40,582 WARNING root:70 MySQL SHOW DATABASES failed (1). Retrying without host...
+2025-08-07 23:05:40,599 ERROR root:141 Backup failed ({'type': 'mysql', 'host': '127.0.0.1', 'username': 'root', 'password': '***', 'port': '3306', 'backup_dir': './backups/mysql', 'container': 'my_mysql'}): rc=1 cmd=['docker', 'exec', 'my_mysql', 'mysql', '-uroot', '-pmy_mysql_password', '-P3306', '-e', 'SHOW DATABASES;'] stderr=Error response from daemon: No such container: my_mysql
+2025-08-07 23:05:40,599 INFO root:12 Respaldo completado.
+2025-08-07 23:15:55,097 INFO root:10 Respaldando base de datos: {'type': 'postgres', 'host': '127.0.0.1', 'username': 'postgres', 'password': 'mysecretpassword', 'port': '5432', 'backup_dir': './backups/postgres', 'container': 'my_postgres'}
+2025-08-07 23:15:55,213 INFO root:122 Backing up Postgres DB: squidstasts
+2025-08-07 23:15:56,201 INFO root:10 Respaldando base de datos: {'type': 'mysql', 'host': '127.0.0.1', 'username': 'root', 'password': 'my_mysql_password', 'port': '3306', 'backup_dir': './backups/mysql', 'container': 'my_mysql'}
+2025-08-07 23:15:56,218 WARNING root:65 MySQL SHOW DATABASES failed (1). Retrying without host...
+2025-08-07 23:15:56,234 ERROR root:136 Backup failed ({'type': 'mysql', 'host': '127.0.0.1', 'username': 'root', 'password': '***', 'port': '3306', 'backup_dir': './backups/mysql', 'container': 'my_mysql'}): rc=1 cmd=['docker', 'exec', 'my_mysql', 'mysql', '-uroot', '-pmy_mysql_password', '-P3306', '-e', 'SHOW DATABASES;'] stderr=Error response from daemon: No such container: my_mysql
+2025-08-07 23:15:56,234 INFO root:12 Respaldo completado.
+2025-08-07 23:24:04,194 INFO root:45 Iniciando daemon de respaldo (intervalo=600s)
+2025-08-07 23:24:04,195 INFO root:39 Respaldando base de datos: {'type': 'postgres', 'host': '127.0.0.1', 'username': 'postgres', 'password': '***', 'port': '5432', 'backup_dir': './backups/postgres', 'container': 'my_postgres'}
+2025-08-07 23:24:04,299 INFO root:122 Backing up Postgres DB: squidstasts
+2025-08-07 23:24:05,301 INFO root:39 Respaldando base de datos: {'type': 'mysql', 'host': '127.0.0.1', 'username': 'root', 'password': '***', 'port': '3306', 'backup_dir': './backups/mysql', 'container': 'my_mysql'}
+2025-08-07 23:24:05,320 WARNING root:65 MySQL SHOW DATABASES failed (1). Retrying without host...
+2025-08-07 23:24:05,338 ERROR root:136 Backup failed ({'type': 'mysql', 'host': '127.0.0.1', 'username': 'root', 'password': '***', 'port': '3306', 'backup_dir': './backups/mysql', 'container': 'my_mysql'}): rc=1 cmd=['docker', 'exec', 'my_mysql', 'mysql', '-uroot', '-pmy_mysql_password', '-P3306', '-e', 'SHOW DATABASES;'] stderr=Error response from daemon: No such container: my_mysql
+2025-08-07 23:24:05,338 INFO root:49 Verificación completada. Próxima en 600 segundos
+2025-08-07 23:26:59,463 INFO root:45 Iniciando daemon de respaldo (intervalo=600s)
+2025-08-07 23:26:59,463 INFO root:39 Respaldando base de datos: {'type': 'postgres', 'host': '127.0.0.1', 'username': 'postgres', 'password': '***', 'port': '5432', 'backup_dir': './backups/postgres', 'container': 'my_postgres'}
+2025-08-07 23:26:59,598 INFO root:122 Backing up Postgres DB: squidstasts
+2025-08-07 23:27:00,548 INFO root:39 Respaldando base de datos: {'type': 'mysql', 'host': '127.0.0.1', 'username': 'root', 'password': '***', 'port': '3306', 'backup_dir': './backups/mysql', 'container': 'mariadbtest'}
+2025-08-07 23:27:00,636 INFO root:49 Verificación completada. Próxima en 600 segundos
+2025-08-07 23:30:21,354 INFO root:45 Iniciando daemon de respaldo (intervalo=60s)
+2025-08-07 23:30:21,354 INFO root:39 Respaldando base de datos: {'type': 'postgres', 'host': '127.0.0.1', 'username': 'postgres', 'password': '***', 'port': '5432', 'backup_dir': './backups/postgres', 'container': 'my_postgres'}
+2025-08-07 23:30:21,501 INFO root:122 Backing up Postgres DB: squidstasts
+2025-08-07 23:30:22,473 INFO root:39 Respaldando base de datos: {'type': 'mysql', 'host': '127.0.0.1', 'username': 'root', 'password': '***', 'port': '3306', 'backup_dir': './backups/mysql', 'container': 'mariadbtest'}
+2025-08-07 23:30:22,555 INFO root:49 Verificación completada. Próxima en 60 segundos
+2025-08-07 23:31:22,555 INFO root:39 Respaldando base de datos: {'type': 'postgres', 'host': '127.0.0.1', 'username': 'postgres', 'password': '***', 'port': '5432', 'backup_dir': './backups/postgres', 'container': 'my_postgres'}
+2025-08-07 23:31:22,701 INFO root:122 Backing up Postgres DB: squidstasts
+2025-08-07 23:31:23,677 INFO root:39 Respaldando base de datos: {'type': 'mysql', 'host': '127.0.0.1', 'username': 'root', 'password': '***', 'port': '3306', 'backup_dir': './backups/mysql', 'container': 'mariadbtest'}
+2025-08-07 23:31:23,772 INFO root:49 Verificación completada. Próxima en 60 segundos
+2025-08-07 23:32:23,772 INFO root:39 Respaldando base de datos: {'type': 'postgres', 'host': '127.0.0.1', 'username': 'postgres', 'password': '***', 'port': '5432', 'backup_dir': './backups/postgres', 'container': 'my_postgres'}
+2025-08-07 23:32:23,910 INFO root:122 Backing up Postgres DB: squidstasts
+2025-08-07 23:32:24,940 INFO root:39 Respaldando base de datos: {'type': 'mysql', 'host': '127.0.0.1', 'username': 'root', 'password': '***', 'port': '3306', 'backup_dir': './backups/mysql', 'container': 'mariadbtest'}
+2025-08-07 23:32:25,055 INFO root:49 Verificación completada. Próxima en 60 segundos
+2025-08-07 23:33:25,056 INFO root:39 Respaldando base de datos: {'type': 'postgres', 'host': '127.0.0.1', 'username': 'postgres', 'password': '***', 'port': '5432', 'backup_dir': './backups/postgres', 'container': 'my_postgres'}
+2025-08-07 23:33:25,159 INFO root:122 Backing up Postgres DB: squidstasts
+2025-08-07 23:33:26,117 INFO root:39 Respaldando base de datos: {'type': 'mysql', 'host': '127.0.0.1', 'username': 'root', 'password': '***', 'port': '3306', 'backup_dir': './backups/mysql', 'container': 'mariadbtest'}
+2025-08-07 23:33:26,205 INFO root:49 Verificación completada. Próxima en 60 segundos
+2025-08-07 23:34:26,205 INFO root:39 Respaldando base de datos: {'type': 'postgres', 'host': '127.0.0.1', 'username': 'postgres', 'password': '***', 'port': '5432', 'backup_dir': './backups/postgres', 'container': 'my_postgres'}
+2025-08-07 23:34:26,358 INFO root:122 Backing up Postgres DB: squidstasts
+2025-08-07 23:34:27,325 INFO root:39 Respaldando base de datos: {'type': 'mysql', 'host': '127.0.0.1', 'username': 'root', 'password': '***', 'port': '3306', 'backup_dir': './backups/mysql', 'container': 'mariadbtest'}
+2025-08-07 23:34:27,414 INFO root:49 Verificación completada. Próxima en 60 segundos
+2025-08-07 23:35:27,415 INFO root:39 Respaldando base de datos: {'type': 'postgres', 'host': '127.0.0.1', 'username': 'postgres', 'password': '***', 'port': '5432', 'backup_dir': './backups/postgres', 'container': 'my_postgres'}
+2025-08-07 23:35:27,569 INFO root:122 Backing up Postgres DB: squidstasts
+2025-08-07 23:35:28,512 INFO root:39 Respaldando base de datos: {'type': 'mysql', 'host': '127.0.0.1', 'username': 'root', 'password': '***', 'port': '3306', 'backup_dir': './backups/mysql', 'container': 'mariadbtest'}
+2025-08-07 23:35:28,590 INFO root:49 Verificación completada. Próxima en 60 segundos
+2025-08-07 23:36:28,590 INFO root:39 Respaldando base de datos: {'type': 'postgres', 'host': '127.0.0.1', 'username': 'postgres', 'password': '***', 'port': '5432', 'backup_dir': './backups/postgres', 'container': 'my_postgres'}
+2025-08-07 23:36:28,706 INFO root:122 Backing up Postgres DB: squidstasts
+2025-08-07 23:36:29,688 INFO root:39 Respaldando base de datos: {'type': 'mysql', 'host': '127.0.0.1', 'username': 'root', 'password': '***', 'port': '3306', 'backup_dir': './backups/mysql', 'container': 'mariadbtest'}
+2025-08-07 23:36:29,767 INFO root:49 Verificación completada. Próxima en 60 segundos
+2025-08-07 23:38:19,677 INFO root:55 Iniciando daemon de respaldo (intervalo=60s)
+2025-08-07 23:38:19,677 INFO root:47 Ya existe respaldo de hoy (config múltiple postgres) en ./backups/postgres
+2025-08-07 23:38:19,677 INFO root:49 Respaldando base(s) (mysql): {'type': 'mysql', 'host': '127.0.0.1', 'username': 'root', 'password': '***', 'port': '3306', 'backup_dir': './backups/mysql', 'container': 'mariadbtest'}
+2025-08-07 23:38:19,753 INFO root:59 Verificación completada. Próxima en 60 segundos
+2025-08-07 23:38:39,412 INFO root:55 Iniciando daemon de respaldo (intervalo=60s)
+2025-08-07 23:38:39,413 INFO root:49 Respaldando base(s) (postgres): {'type': 'postgres', 'host': '127.0.0.1', 'username': 'postgres', 'password': '***', 'port': '5432', 'backup_dir': './backups/postgres', 'container': 'my_postgres'}
+2025-08-07 23:38:39,554 INFO root:122 Backing up Postgres DB: squidstasts
+2025-08-07 23:38:40,539 INFO root:49 Respaldando base(s) (mysql): {'type': 'mysql', 'host': '127.0.0.1', 'username': 'root', 'password': '***', 'port': '3306', 'backup_dir': './backups/mysql', 'container': 'mariadbtest'}
+2025-08-07 23:38:40,640 INFO root:59 Verificación completada. Próxima en 60 segundos
+2025-08-07 23:39:40,641 INFO root:47 Ya existe respaldo de hoy (config múltiple postgres) en ./backups/postgres
+2025-08-07 23:39:40,641 INFO root:49 Respaldando base(s) (mysql): {'type': 'mysql', 'host': '127.0.0.1', 'username': 'root', 'password': '***', 'port': '3306', 'backup_dir': './backups/mysql', 'container': 'mariadbtest'}
+2025-08-07 23:39:40,755 INFO root:59 Verificación completada. Próxima en 60 segundos
+2025-08-07 23:40:40,756 INFO root:47 Ya existe respaldo de hoy (config múltiple postgres) en ./backups/postgres
+2025-08-07 23:40:40,756 INFO root:49 Respaldando base(s) (mysql): {'type': 'mysql', 'host': '127.0.0.1', 'username': 'root', 'password': '***', 'port': '3306', 'backup_dir': './backups/mysql', 'container': 'mariadbtest'}
+2025-08-07 23:40:40,872 INFO root:59 Verificación completada. Próxima en 60 segundos
+2025-08-07 23:41:40,873 INFO root:47 Ya existe respaldo de hoy (config múltiple postgres) en ./backups/postgres
+2025-08-07 23:41:40,874 INFO root:49 Respaldando base(s) (mysql): {'type': 'mysql', 'host': '127.0.0.1', 'username': 'root', 'password': '***', 'port': '3306', 'backup_dir': './backups/mysql', 'container': 'mariadbtest'}
+2025-08-07 23:41:40,986 INFO root:59 Verificación completada. Próxima en 60 segundos
